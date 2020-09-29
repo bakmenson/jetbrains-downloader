@@ -4,20 +4,19 @@
 class ChooseIde:
 
     @staticmethod
-    def choose_ide(ide_array: tuple) -> int:
+    def choose_ide(ide_array: tuple) -> str:
         ide_range: int = len(ide_array) + 1
-        ide_number: int = ide_range
 
         print()
 
         for index, ide in enumerate(ide_array):
-            print(f"{index + 1}. Download " + ide + ".")
+            print(f"{index + 1}. " + ide + ".")
 
         print(f"{ide_range}. Exit.")
 
-        ChooseIde.__choose_integer_in_range(ide_range)
+        ide_number = ChooseIde.__choose_integer_in_range(ide_range)
 
-        return ide_number
+        return list(ide_array)[ide_number - 1]
 
     @staticmethod
     def __choose_edition():
