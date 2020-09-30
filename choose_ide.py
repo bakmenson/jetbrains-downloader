@@ -10,7 +10,7 @@ class ChooseIde:
         print()
 
         for index, ide in enumerate(ide_array):
-            print(f"{index + 1}. " + ide + ".")
+            print(f"{index + 1:>2}. " + ide + ".")
 
         print(f"{ide_range}. Exit.")
 
