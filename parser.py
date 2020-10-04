@@ -3,6 +3,31 @@
 from html.parser import HTMLParser
 
 
+class IDENamesParser(HTMLParser):
+    def __init__(self):
+        HTMLParser.__init__(self)
+        self.__ide_names = []
+        self.__is_taken_ide_name = True
+        self.__is_ide_attr = False
+        self.__ide_attrs = ("ide", "ide,data-science")
+
+    def get_names(self):
+        return self.__ide_names
+
+    def handle_starttag(self, tag, attrs):
+        for attr in attrs:
+            if attr[1] in self.__ide_attrs:
+                self.__is_ide_attr = True
+            if self.__is_ide_attr and attr[1] == "product-item__title-link":
+                self.__is_ide_attr = False
+                self.__is_taken_ide_name = False
+
+    def handle_data(self, data):
+        if not self.__is_taken_ide_name:
+            self.__ide_names.append(data)
+            self.__is_taken_ide_name = True
+
+
 class IDEUpdatesParser(HTMLParser):
 
     def __init__(self):
