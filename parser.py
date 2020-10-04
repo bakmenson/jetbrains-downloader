@@ -3,7 +3,7 @@
 from html.parser import HTMLParser
 
 
-class UpdatesParser(HTMLParser):
+class IDEUpdatesParser(HTMLParser):
 
     def __init__(self):
         HTMLParser.__init__(self)
