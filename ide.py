@@ -15,25 +15,6 @@ class IDE:
     def get_product_name(self) -> str:
         return self.__product_name
 
-    def choose_ide(self):
-        self.__print_ide_names()
-        self.__ide_number = self.__choose_integer_in_range()
-        self.__ide_version = self.__ide_names[self.__ide_number][-1]
-
-        if isinstance(self.__ide_names[self.__ide_number][0][1], tuple):
-            self.__ide_names = self.__set_index_for_ide_name(
-                self.__ide_names[self.__ide_number][0][1]
-            )
-
-            self.__print_ide_names()
-            self.__ide_number = self.__choose_integer_in_range()
-            self.__ide_name = self.__ide_names[self.__ide_number]
-
-        else:
-            self.__ide_name = self.__ide_names[self.__ide_number][0]
-
-        self.__ide[self.__ide_name] = self.__ide_version
-
     def __print_ide_names(self):
         print()
 
