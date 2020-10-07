@@ -52,3 +52,21 @@ class IDE:
             ide_name_with_index[index] = item
 
         return ide_name_with_index
+
+    def __choose_index(self) -> int:
+        index_range = len(self.__products_with_index) + 1
+
+        while True:
+            try:
+                self.__index = int(input(">>> "))
+            except ValueError:
+                print(f"Number most be integer between: 0 - {index_range}")
+                continue
+
+            if 0 < self.__index <= index_range:
+                break
+
+            print(f"Number most be between: 0 - {index_range}")
+            continue
+
+        return self.__index
