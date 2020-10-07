@@ -15,6 +15,15 @@ class IDE:
     def get_product_name(self) -> str:
         return self.__product_name
 
+    def choose_product(self) -> None:
+        self.__choose_product()
+
+        if isinstance(self.__products_with_index[self.__index], tuple):
+            self.__products = self.__products_with_index[self.__index][1]
+            self.__choose_product()
+
+        self.__product_name = self.__products_with_index[self.__index]
+
     def __print_ide_names(self):
         print()
 
