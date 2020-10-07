@@ -45,25 +45,6 @@ class IDE:
                 print(f"{key:>2}. {value}")
         print(f"{len(self.__products_with_index) + 1:>2}. Exit.")
 
-    def __choose_integer_in_range(self) -> int:
-        number = 0
-        number_range = len(self.__ide_names) + 1
-
-        while True:
-            try:
-                number = int(input(">>> "))
-            except ValueError:
-                print(f"Number most be integer between: 0 - {number_range}")
-                continue
-
-            if 0 < number <= number_range:
-                break
-
-            print(f"Number most be between: 0 - {number_range}")
-            continue
-
-        return number
-
     def __set_index_for_ide_name(self, ide_names) -> dict:
         ide_name_with_index: dict = {}
 
