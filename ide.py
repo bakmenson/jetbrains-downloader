@@ -24,19 +24,6 @@ class IDE:
 
         self.__product_name = self.__products_with_index[self.__index]
 
-    def __print_ide_names(self):
-        print()
-
-        for key, value in self.__ide_names.items():
-            if isinstance(value, str):
-                print(f"{key:>2}. " + value)
-            elif isinstance(value[0], str):
-                print(f"{key:>2}. " + value[0])
-            else:
-                print(f"{key:>2}. " + value[0][0])
-
-        print(f"{len(self.__ide_names.keys()) + 1:>2}. Exit.")
-
     def __choose_integer_in_range(self) -> int:
         number = 0
         number_range = len(self.__ide_names) + 1
