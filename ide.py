@@ -32,6 +32,11 @@ class IDE:
         if self.__index == len(self.__products_with_index) + 1:
             exit()
 
+    def __set_index_for_products(self) -> None:
+        self.__products_with_index.clear()
+        for index, item in enumerate(self.__products, start=1):
+            self.__products_with_index[index] = item
+
     def __print_products(self) -> None:
         for key, value in self.__products_with_index.items():
             if isinstance(value, tuple):
