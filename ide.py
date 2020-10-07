@@ -24,6 +24,14 @@ class IDE:
 
         self.__product_name = self.__products_with_index[self.__index]
 
+    def __choose_product(self) -> None:
+        self.__set_index_for_products()
+        self.__print_products()
+        self.__choose_index()
+
+        if self.__index == len(self.__products_with_index) + 1:
+            exit()
+
     def __print_products(self) -> None:
         for key, value in self.__products_with_index.items():
             if isinstance(value, tuple):
