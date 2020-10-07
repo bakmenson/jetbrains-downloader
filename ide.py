@@ -12,6 +12,9 @@ class IDE:
         self.__product_name: str = ""
         self.__index: int = 0
 
+    def get_product_name(self) -> str:
+        return self.__product_name
+
     def choose_ide(self):
         self.__print_ide_names()
         self.__ide_number = self.__choose_integer_in_range()
