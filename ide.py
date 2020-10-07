@@ -4,7 +4,7 @@ from typing import Union
 from sys import exit
 
 
-class IDE:
+class Products:
 
     def __init__(self, products: Union[list, tuple]) -> None:
         self.__products: Union[list, tuple] = products
