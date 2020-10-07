@@ -3,12 +3,11 @@
 
 class IDE:
 
-    def __init__(self, ide_names: tuple):
-        self.__ide_names = self.__set_index_for_ide_name(ide_names)
-        self.__ide: dict = {}
-        self.__ide_number: int = 0
-        self.__ide_name: str = ""
-        self.__ide_version: str = ""
+    def __init__(self, products: Union[list, tuple]) -> None:
+        self.__products: Union[list, tuple] = products
+        self.__products_with_index: dict = {}
+        self.__product_name: str = ""
+        self.__index: int = 0
 
     def get_ide(self) -> dict:
         return self.__ide
