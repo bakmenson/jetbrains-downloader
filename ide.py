@@ -45,14 +45,6 @@ class IDE:
                 print(f"{key:>2}. {value}")
         print(f"{len(self.__products_with_index) + 1:>2}. Exit.")
 
-    def __set_index_for_ide_name(self, ide_names) -> dict:
-        ide_name_with_index: dict = {}
-
-        for index, item in enumerate(ide_names, start=1):
-            ide_name_with_index[index] = item
-
-        return ide_name_with_index
-
     def __choose_index(self) -> int:
         index_range = len(self.__products_with_index) + 1
 
