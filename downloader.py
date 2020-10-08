@@ -1,48 +1,80 @@
 #!/usr/bin/env python3
 
-from os import chdir
-from sys import exit
-from pathlib import Path
-from subprocess import call
-from urllib.request import urlopen, Request
+from platform import system
+from typing import NamedTuple
+from urllib.request import Request
 
-from jetbrains_updates_parser import JetbrainsUpdatesParser
-from choose_ide import ChooseIde
-
-
-def download_jetbrains_ide(link: str, ide_name: str) -> None:
-    call("wget " + link + ide_name, shell=True)
-    print("Unpacking...")
-    call("tar zxf " + ide_name, shell=True)
-    print("Done\n")
-
-
-ide_array: tuple = ("IDEA", "Pycharm")
-
-ide_number = ChooseIde.choose_ide(ide_array)
-
-if ide_number == len(ide_array) + 1:
-    exit()
+from updates_parser import UpdatesParser
+from products import Products
+from download_link import DownloadLink
+from downloader_utility import download_ide, parser_feed, get_ide_updates
 
 req = Request("https://www.jetbrains.com/updates/updates.xml")
-html_parser = JetbrainsUpdatesParser()
+MAIN_LINK = "https://download-cf.jetbrains.com"
 
-with urlopen(req) as response:
-    html_parser.feed(response.read().decode("utf-8"))
+platform_file_extensions: dict = {
+    "Linux": ".tar.gz",
+    "Darwin": ".dmg",
+    "Windows": ".exe"
+}
 
-products = html_parser.get_result_data()
+ide_sublinks = {
+    "AppCode": "/objc/AppCode-",
+    "CLion": "/cpp/CLion-",
+    "DataGrip": "/datagrid/datagrid-",
+    "GoLand": "/go/goland-",
+    "IntelliJ IDEA Ultimate": "/idea/ideaIU-",
+    "IntelliJ IDEA Community": "/idea/ideaIC-",
+    "IntelliJ IDEA Edu": "/idea/ideaIE-",
+    "PhpStorm": "/webide/PhpStorm-",
+    "PyCharm Professional": "/python/pycharm-professional-",
+    "PyCharm Community": "/python/pycharm-community-",
+    "PyCharm Edu": "/idea/ideaIE-",
+    "Rider": "/rider/JetBrains.Rider-",
+    "RubyMine": "/ruby/RubyMine-",
+    "WebStorm": "/webstorm/WebStorm-",
+}
 
-idea_community: str = f'ideaIC-{products["IC-IU-RELEASE-licensing-RELEASE"]}.tar.gz'
-idea_ultimate: str = f'ideaIU-{products["IC-IU-RELEASE-licensing-RELEASE"]}.tar.gz'
+ide_names = [
+    "AppCode",
+    "CLion",
+    "DataGrip",
+    "GoLand",
+    ("IntelliJ IDEA", ("IntelliJ IDEA Ultimate",
+                       "IntelliJ IDEA Community")),
+    "PhpStorm",
+    ("PyCharm", ("PyCharm Professional",
+                 "PyCharm Community")),
+    "Rider",
+    "RubyMine",
+    "WebStorm",
+]
 
-pycharm_community: str = f'pycharm-community-{products["PC-PY-RELEASE-licensing-RELEASE"]}.tar.gz'
-pycharm_professional: str = f'pycharm-professional-{products["PC-PY-RELEASE-licensing-RELEASE"]}.tar.gz'
+updates_parser = UpdatesParser()
 
-idea_link: str = 'https://download.jetbrains.com/idea/'
-pycharm_link: str = 'https://download.jetbrains.com/python/'
+parser_feed(updates_parser, req)
 
-home_dir = str(Path.home())
-chdir(home_dir)
+product_updates = updates_parser.get_product_updates()
 
-if ide_number == 1:
-    download_jetbrains_ide(idea_link, idea_community)
+platform_system: str = system()
+
+if platform_system != "Darwin":
+    ide_sublinks.pop("AppCode")
+    product_updates.pop("AppCode")
+    ide_names.remove("AppCode")
+
+ide_updates: dict = get_ide_updates(ide_names, product_updates)
+
+products = Products(ide_updates)
+products.choose_product()
+
+ide: NamedTuple = products.get_product()
+
+download_link = DownloadLink(MAIN_LINK,
+                             ide_sublinks,
+                             platform_file_extensions[platform_system],
+                             ide)
+
+link = download_link.get_download_link()
+
+download_ide(link)
