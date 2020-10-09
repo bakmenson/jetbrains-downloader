@@ -68,7 +68,7 @@ ide_updates: dict = get_ide_updates(ide_names, product_updates)
 products = Products(ide_updates)
 products.choose_product()
 
-ide: NamedTuple = products.get_product()
+ide: dict = products.get_product()
 
 download_link = DownloadLink(MAIN_LINK,
                              ide_sublinks,

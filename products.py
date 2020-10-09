@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 
-from typing import NamedTuple, Union
+from typing import Union
 from sys import exit
-from collections import namedtuple
 
 
 class Products:
@@ -14,9 +13,8 @@ class Products:
         self.__product_version: str = ""
         self.__index: int = len(self.__products) + 1
 
-    def get_product(self) -> NamedTuple:
-        Product = namedtuple("Product", ("name", "version"))
-        return Product(self.__product_name, self.__product_version)
+    def get_product(self) -> dict:
+        return {self.__product_name: self.__product_version}
 
     def choose_product(self) -> None:
         self.__choose_product()
