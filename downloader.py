@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 from platform import system
-from typing import NamedTuple
 from urllib.request import Request
 
 from updates_parser import UpdatesParser
