@@ -4,6 +4,8 @@ from os import chdir
 from pathlib import Path
 from subprocess import run
 from urllib.request import urlopen
+from urllib.error import HTTPError, URLError
+from sys import exit
 
 
 def download_ide(link: str) -> None:
@@ -12,8 +14,17 @@ def download_ide(link: str) -> None:
 
 
 def parser_feed(parser, req):
-    with urlopen(req) as response:
-        parser.feed(response.read().decode("utf-8"))
+    try:
+        with urlopen(req, timeout=10) as response:
+            parser.feed(response.read().decode("utf-8"))
+
+        if not parser.get_product_updates():
+            print("\nData not retrieved because <wrong url>.\n")
+            exit()
+
+    except (HTTPError, URLError) as error:
+        print(f"\nData not retrieved because {error}.\n")
+        exit()
 
 
 def get_ide_updates(ide_names: list, product_updates: dict) -> dict:
