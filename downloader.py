@@ -6,7 +6,8 @@ from urllib.request import Request
 from updates_parser import UpdatesParser
 from products import Products
 from download_link import DownloadLink
-from downloader_utility import download_ide, parser_feed, get_ide_updates
+from downloader_utility import download_ide, parser_feed, get_ide_updates, \
+        extract_tar_archive
 
 req = Request("https://www.jetbrains.com/updates/updates.xml")
 MAIN_LINK = "https://download-cf.jetbrains.com"
@@ -39,11 +40,9 @@ ide_names = [
     "CLion",
     "DataGrip",
     "GoLand",
-    ("IntelliJ IDEA", ("IntelliJ IDEA Ultimate",
-                       "IntelliJ IDEA Community")),
+    ("IntelliJ IDEA", ("IntelliJ IDEA Ultimate", "IntelliJ IDEA Community")),
     "PhpStorm",
-    ("PyCharm", ("PyCharm Professional",
-                 "PyCharm Community")),
+    ("PyCharm", ("PyCharm Professional", "PyCharm Community")),
     "Rider",
     "RubyMine",
     "WebStorm",
@@ -69,11 +68,15 @@ products.choose_product()
 
 ide: dict = products.get_product()
 
-download_link = DownloadLink(MAIN_LINK,
-                             ide_sublinks,
-                             platform_file_extensions[platform_system],
-                             ide)
+download_link = DownloadLink(MAIN_LINK, ide_sublinks,
+                             platform_file_extensions[platform_system], ide)
 
 link = download_link.get_download_link()
 
 download_ide(link)
+
+if platform_system == "Linux":
+    downloaded_ide_archive: str = link.split("/")[-1]
+    extract_tar_archive(downloaded_ide_archive)
+
+print("Done\n")
