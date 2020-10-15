@@ -2,16 +2,13 @@
 
 from os import chdir
 from pathlib import Path
-from subprocess import call
+from subprocess import run
 from urllib.request import urlopen
 
 
 def download_ide(link: str) -> None:
     chdir(Path.home())
-    call("wget " + link, shell=True)
-    print("Unpacking...")
-    call("tar -xf " + link.split("/")[-1], shell=True)
-    print("Done\n")
+    run("wget " + link, shell=True, check=True)
 
 
 def parser_feed(parser, req):
@@ -30,3 +27,8 @@ def get_ide_updates(ide_names: list, product_updates: dict) -> dict:
                 ide_updates[name] = value
 
     return ide_updates
+
+
+def extract_tar_archive(path_to_file: str) -> None:
+    print("Unpacking...")
+    run("tar -xf " + path_to_file, shell=True, check=True)
