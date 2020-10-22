@@ -12,8 +12,6 @@ from sys import exit
 from updates_parser import UpdatesParser
 from products import Products
 from download_link import DownloadLink
-from downloader_utility import download_ide, parser_feed, get_ide_updates, \
-        extract_tar_archive
 
 req = Request("https://www.jetbrains.com/updates/updates.xml")
 MAIN_LINK = "https://download-cf.jetbrains.com"
