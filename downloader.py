@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
 
 from platform import system
-from urllib.request import Request
 from os import chdir
 from pathlib import Path
 from subprocess import run
-from urllib.request import urlopen
+from urllib.request import urlopen, Request
 from urllib.error import HTTPError, URLError
 from sys import exit
 
