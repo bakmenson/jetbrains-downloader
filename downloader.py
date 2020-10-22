@@ -2,6 +2,12 @@
 
 from platform import system
 from urllib.request import Request
+from os import chdir
+from pathlib import Path
+from subprocess import run
+from urllib.request import urlopen
+from urllib.error import HTTPError, URLError
+from sys import exit
 
 from updates_parser import UpdatesParser
 from products import Products
@@ -50,7 +56,17 @@ ide_names = [
 
 updates_parser = UpdatesParser()
 
-parser_feed(updates_parser, req)
+try:
+    with urlopen(req, timeout=10) as response:
+        updates_parser.feed(response.read().decode("utf-8"))
+
+    if not updates_parser.get_product_updates():
+        print("\nData not retrieved because <wrong url>.\n")
+        exit()
+
+except (HTTPError, URLError) as error:
+    print(f"\nData not retrieved because {error}.\n")
+    exit()
 
 product_updates = updates_parser.get_product_updates()
 
@@ -61,7 +77,14 @@ if platform_system != "Darwin":
     product_updates.pop("AppCode")
     ide_names.remove("AppCode")
 
-ide_updates: dict = get_ide_updates(ide_names, product_updates)
+ide_updates: dict = {}
+
+for name in ide_names:
+    for key, value in product_updates.items():
+        if isinstance(name, tuple) and name[0] == key:
+            ide_updates[name] = value
+        elif name == key:
+            ide_updates[name] = value
 
 products = Products(ide_updates)
 products.choose_product()
@@ -73,10 +96,12 @@ download_link = DownloadLink(MAIN_LINK, ide_sublinks,
 
 link = download_link.get_download_link()
 
-download_ide(link)
+chdir(Path.home())
+run("wget " + link, shell=True, check=True)
 
 if platform_system == "Linux":
     downloaded_ide_archive: str = link.split("/")[-1]
-    extract_tar_archive(downloaded_ide_archive)
+    print("Unpacking...")
+    run("tar -xf " + downloaded_ide_archive, shell=True, check=True)
 
 print("Done\n")
