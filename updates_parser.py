@@ -5,17 +5,17 @@ from html.parser import HTMLParser
 
 class UpdatesParser(HTMLParser):
 
-    def __init__(self):
+    def __init__(self) -> None:
         HTMLParser.__init__(self)
-        self.__result_data = {}
-        self.__is_allow_take_build_version = False
+        self.__result_data: dict = {}
+        self.__is_allow_take_build_version: bool = False
         self.__product_name: str = ""
         self.__build_version: str = ""
 
-    def get_product_updates(self):
+    def get_product_updates(self) -> dict:
         return self.__result_data
 
-    def handle_starttag(self, tag, attrs):
+    def handle_starttag(self, tag, attrs) -> None:
         if tag == "product":
             self.__product_name = attrs[0][1]
 
