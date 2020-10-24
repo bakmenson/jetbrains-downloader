@@ -7,7 +7,7 @@
 ``` sh
 $ git clone https://github.com/bakmenson/jetbrains-downloader.git
 
-$ cd jetbrains_downloader
+$ cd jetbrains-downloader
 
 $ python3 downloader.py
 ```
