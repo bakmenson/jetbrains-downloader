@@ -5,7 +5,7 @@
 ### Usage:
 
 ``` sh
-$ git clone https://github.com/bakmenson/jetbrains_downloader.git
+$ git clone https://github.com/bakmenson/jetbrains-downloader.git
 
 $ cd jetbrains_downloader
 
