@@ -5,6 +5,25 @@ from sys import exit
 
 
 class Products:
+    """
+    JetBrains products
+
+    Args:
+        products (:obj: `dict` of :key: `str`, :value: `str`):
+            key is product name, value is product version.
+
+    Attributes:
+        __products (Union[:obj: `dict` of :key: `str`, :value: `str`,
+                          :obj: `tuple` of `str`]):
+            products names and versions if dict
+            or products names if tuple.
+        __products_with_index (:obj: `dict` of :key: `int`, :value: `dict`):
+            key is number of product,
+            value is product (name: version).
+        __product_name (str): product name.
+        __product_version (str): product version.
+        __index (int): product index of __products_with_index.
+    """
 
     def __init__(self, products: dict) -> None:
         self.__products: Union[dict, tuple] = products
