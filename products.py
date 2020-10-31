@@ -36,17 +36,17 @@ class Products:
         return {self.__product_name: self.__product_version}
 
     def choose_product(self) -> None:
-        self.__choose_product()
+        self.__choose_product_index()
         self.__product_version = self.__products_with_index[self.__index][1]
 
         if isinstance(self.__products_with_index[self.__index][0], tuple):
             self.__products = self.__products_with_index[self.__index][0][1]
-            self.__choose_product()
+            self.__choose_product_index()
             self.__product_name = self.__products_with_index[self.__index]
         else:
             self.__product_name = self.__products_with_index[self.__index][0]
 
-    def __choose_product(self) -> None:
+    def __choose_product_index(self) -> None:
         self.__set_indexes_for_products()
         self.__print_products()
         self.__choose_index()
