@@ -47,14 +47,14 @@ class Products:
             self.__product_name = self.__products_with_index[self.__index][0]
 
     def __choose_product_index(self) -> None:
-        self.__set_indexes_for_products()
+        self.__set_products_indexes()
         self.__print_products()
         self.__choose_index()
 
         if self.__index == len(self.__products_with_index) + 1:
             exit()
 
-    def __set_indexes_for_products(self) -> None:
+    def __set_products_indexes(self) -> None:
         self.__products_with_index.clear()
         if isinstance(self.__products, dict):
             for index, item in enumerate(self.__products.items(), start=1):
