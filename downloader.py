@@ -53,7 +53,7 @@ ide_names = [
 updates_parser = UpdatesParser()
 
 try:
-    with urlopen(req, timeout=10) as response:
+    with urlopen(req) as response:
         updates_parser.feed(response.read().decode("utf-8"))
 
     if not updates_parser.get_product_updates():
