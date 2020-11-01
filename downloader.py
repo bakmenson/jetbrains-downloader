@@ -83,7 +83,7 @@ for ide_name in ide_names:
             ide_updates[ide_name] = product_version
 
 products = Products()
-products.choose_product()
+products.choose_product(ide_updates)
 
 link = "".join([
     MAIN_LINK,
