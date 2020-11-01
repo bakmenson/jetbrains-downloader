@@ -92,9 +92,6 @@ link = "".join([
     platform_file_extensions[platform_system]
 ])
 
-print(link)
-exit()
-
 chdir(Path.home())
 run("wget " + link, shell=True, check=True)
 
