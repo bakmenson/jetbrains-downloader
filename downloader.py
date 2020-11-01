@@ -78,7 +78,7 @@ ide_updates: dict = {}
 
 for ide_name in ide_names:
     for product_name, product_version in product_updates.items():
-        if isinstance(ide_name, tuple) and ide_name[0] == key:
+        if isinstance(ide_name, tuple) and ide_name[0] == product_name:
             ide_updates[ide_name] = product_version
         elif ide_name == product_name:
             ide_updates[ide_name] = product_version
