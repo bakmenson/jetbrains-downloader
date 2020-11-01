@@ -32,9 +32,6 @@ class Products:
         self.__product_version: str = ""
         self.__index: int = len(self.__products) + 1
 
-    def get_product(self) -> dict:
-        return {self.__product_name: self.__product_version}
-
     def get_product_name(self) -> str:
         return self.__product_name
 
