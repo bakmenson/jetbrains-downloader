@@ -35,6 +35,12 @@ class Products:
     def get_product(self) -> dict:
         return {self.__product_name: self.__product_version}
 
+    def get_product_name(self) -> str:
+        return self.__product_name
+
+    def get_product_version(self) -> str:
+        return self.__product_version
+
     def choose_product(self) -> None:
         self.__choose_product_index()
         self.__product_version = self.__products_with_index[self.__index][1]
