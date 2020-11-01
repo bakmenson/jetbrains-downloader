@@ -26,11 +26,10 @@ class Products:
     """
 
     def __init__(self, products: dict) -> None:
-        self.__products: Union[dict, tuple] = products
         self.__products_with_index: dict = {}
         self.__product_name: str = ""
         self.__product_version: str = ""
-        self.__index: int = len(self.__products) + 1
+        self.__index: int = 0
 
     def get_product_name(self) -> str:
         return self.__product_name
@@ -43,7 +42,7 @@ class Products:
         self.__product_version = self.__products_with_index[self.__index][1]
 
         if isinstance(self.__products_with_index[self.__index][0], tuple):
-            self.__products = self.__products_with_index[self.__index][0][1]
+            products = self.__products_with_index[self.__index][0][1]
             self.__choose_product_index(products)
             self.__product_name = self.__products_with_index[self.__index]
         else:
@@ -59,11 +58,11 @@ class Products:
 
     def __set_products_indexes(self, products: Union[dict, tuple]) -> None:
         self.__products_with_index.clear()
-        if isinstance(self.__products, dict):
-            for index, item in enumerate(self.__products.items(), start=1):
+        if isinstance(products, dict):
+            for index, item in enumerate(products.items(), start=1):
                 self.__products_with_index[index] = item
         else:
-            for index, item in enumerate(self.__products, start=1):
+            for index, item in enumerate(products, start=1):
                 self.__products_with_index[index] = item
 
     def __print_products(self) -> None:
