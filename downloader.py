@@ -76,12 +76,12 @@ if platform_system != "Darwin":
 
 ide_updates: dict = {}
 
-for name in ide_names:
-    for key, value in product_updates.items():
-        if isinstance(name, tuple) and name[0] == key:
-            ide_updates[name] = value
-        elif name == key:
-            ide_updates[name] = value
+for ide_name in ide_names:
+    for product_name, product_version in product_updates.items():
+        if isinstance(ide_name, tuple) and ide_name[0] == key:
+            ide_updates[ide_name] = product_version
+        elif ide_name == product_name:
+            ide_updates[ide_name] = product_version
 
 products = Products(ide_updates)
 products.choose_product()
