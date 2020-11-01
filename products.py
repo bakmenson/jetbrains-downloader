@@ -25,7 +25,7 @@ class Products:
         __index (int): product index of __products_with_index.
     """
 
-    def __init__(self, products: dict) -> None:
+    def __init__(self) -> None:
         self.__products_with_index: dict = {}
         self.__product_name: str = ""
         self.__product_version: str = ""
