@@ -10,7 +10,6 @@ from sys import exit
 
 from updates_parser import UpdatesParser
 from products import Products
-from download_link import DownloadLink
 
 req = Request("https://www.jetbrains.com/updates/updates.xml")
 MAIN_LINK = "https://download-cf.jetbrains.com"
@@ -86,12 +85,15 @@ for ide_name in ide_names:
 products = Products(ide_updates)
 products.choose_product()
 
-ide: dict = products.get_product()
+link = "".join([
+    MAIN_LINK,
+    ide_sublinks[products.get_product_name()],
+    products.get_product_version(),
+    platform_file_extensions[platform_system]
+])
 
-download_link = DownloadLink(MAIN_LINK, ide_sublinks,
-                             platform_file_extensions[platform_system], ide)
-
-link = download_link.get_download_link()
+print(link)
+exit()
 
 chdir(Path.home())
 run("wget " + link, shell=True, check=True)
