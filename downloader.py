@@ -82,13 +82,13 @@ for ide_name in ide_names:
         elif ide_name == product_name:
             ide_updates[ide_name] = product_version
 
-products = Product()
-products.choose_product(ide_updates)
+ide = Product()
+ide.choose_product(ide_updates)
 
 link = "".join([
     MAIN_LINK,
-    ide_sublinks[products.get_product_name()],
-    products.get_product_version(),
+    ide_sublinks[ide.get_product_name()],
+    ide.get_product_version(),
     platform_file_extensions[platform_system]
 ])
 
