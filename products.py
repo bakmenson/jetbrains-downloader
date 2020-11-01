@@ -4,7 +4,7 @@ from typing import Union
 from sys import exit
 
 
-class Products:
+class Product:
     """
     JetBrains products
 
