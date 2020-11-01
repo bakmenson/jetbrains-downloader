@@ -4,6 +4,18 @@ from html.parser import HTMLParser
 
 
 class UpdatesParser(HTMLParser):
+    """
+    Parser JetBrains products updates
+
+    Attributes:
+        __result_data (:obj: `dict` of :key: `str`, :value: `str`):
+            key: product name, value: product version.
+        __is_allow_take_build_version (bool): by default is false,
+            if tag is channel and tag's attribute is -RELEASE-licensing-RELEASE,
+            then __is_allow_take_build_version change to true.
+        __product_name (str): product name.
+        __product_version (str): product version.
+    """
 
     def __init__(self) -> None:
         HTMLParser.__init__(self)
