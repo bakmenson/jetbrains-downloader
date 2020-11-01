@@ -9,7 +9,7 @@ from urllib.error import HTTPError, URLError
 from sys import exit
 
 from updates_parser import UpdatesParser
-from products import Product
+from product import Product
 
 req = Request("https://www.jetbrains.com/updates/updates.xml")
 MAIN_LINK = "https://download-cf.jetbrains.com"
