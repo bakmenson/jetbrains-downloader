@@ -38,26 +38,26 @@ class Products:
     def get_product_version(self) -> str:
         return self.__product_version
 
-    def choose_product(self) -> None:
-        self.__choose_product_index()
+    def choose_product(self, products: Union[dict, tuple]) -> None:
+        self.__choose_product_index(products)
         self.__product_version = self.__products_with_index[self.__index][1]
 
         if isinstance(self.__products_with_index[self.__index][0], tuple):
             self.__products = self.__products_with_index[self.__index][0][1]
-            self.__choose_product_index()
+            self.__choose_product_index(products)
             self.__product_name = self.__products_with_index[self.__index]
         else:
             self.__product_name = self.__products_with_index[self.__index][0]
 
-    def __choose_product_index(self) -> None:
-        self.__set_products_indexes()
+    def __choose_product_index(self, products: Union[dict, tuple]) -> None:
+        self.__set_products_indexes(products)
         self.__print_products()
         self.__choose_index()
 
         if self.__index == len(self.__products_with_index) + 1:
             exit()
 
-    def __set_products_indexes(self) -> None:
+    def __set_products_indexes(self, products: Union[dict, tuple]) -> None:
         self.__products_with_index.clear()
         if isinstance(self.__products, dict):
             for index, item in enumerate(self.__products.items(), start=1):
