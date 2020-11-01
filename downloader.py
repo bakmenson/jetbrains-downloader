@@ -82,7 +82,7 @@ for ide_name in ide_names:
         elif ide_name == product_name:
             ide_updates[ide_name] = product_version
 
-products = Products(ide_updates)
+products = Products()
 products.choose_product()
 
 link = "".join([
