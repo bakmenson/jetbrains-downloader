@@ -6,7 +6,7 @@ from sys import exit
 
 class Product:
     """
-    JetBrains products
+    JetBrains product
 
     Args:
         products (:obj: `dict` of :key: `str`, :value: `str`):
