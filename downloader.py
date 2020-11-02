@@ -9,7 +9,7 @@ from urllib.error import HTTPError, URLError
 from sys import exit
 
 from updates_parser import UpdatesParser
-from product import Product
+from product import JetBrainsProduct
 
 req = Request("https://www.jetbrains.com/updates/updates.xml")
 MAIN_LINK = "https://download-cf.jetbrains.com"
@@ -80,7 +80,7 @@ for ide_name in ide_names:
         elif ide_name == product_name:
             ide_updates[ide_name] = product_version
 
-ide = Product()
+ide = JetBrainsProduct()
 ide.choose_product(ide_updates)
 
 link = "".join([
