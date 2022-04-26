@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 from platform import system
-from os import chdir
+from os import chdir, remove
 from pathlib import Path
 from subprocess import run
 from urllib.request import urlopen, Request
@@ -100,6 +100,7 @@ while True:
         downloaded_ide_archive: str = link.split("/")[-1]
         print("Unpacking...")
         run("tar -xf " + downloaded_ide_archive, shell=True, check=True)
+        remove(downloaded_ide_archive)
 
     print("Done\n")
 
