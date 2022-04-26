@@ -81,21 +81,28 @@ for ide_name in ide_names:
             ide_updates[ide_name] = product_version
 
 ide = JetBrainsProduct()
-ide.choose_product(ide_updates)
 
-link = "".join([
-    MAIN_LINK,
-    ide_sublinks[ide.get_product_name()],
-    ide.get_product_version(),
-    platform_file_extensions[platform_system]
-])
+print("Select JetBrains IDE for downloading:")
+while True:
+    ide.choose_product(ide_updates)
 
-chdir(Path.home())
-run("wget " + link, shell=True, check=True)
+    link = "".join([
+        MAIN_LINK,
+        ide_sublinks[ide.get_product_name()],
+        ide.get_product_version(),
+        platform_file_extensions[platform_system]
+    ])
 
-if platform_system == "Linux":
-    downloaded_ide_archive: str = link.split("/")[-1]
-    print("Unpacking...")
-    run("tar -xf " + downloaded_ide_archive, shell=True, check=True)
+    chdir(Path.home())
+    run("wget " + link, shell=True, check=True)
 
-print("Done\n")
+    if platform_system == "Linux":
+        downloaded_ide_archive: str = link.split("/")[-1]
+        print("Unpacking...")
+        run("tar -xf " + downloaded_ide_archive, shell=True, check=True)
+
+    print("Done\n")
+
+    answer = input("Continue? (y/n) >>> ")
+    if answer != 'y':
+        break
